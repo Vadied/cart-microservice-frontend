@@ -1,10 +1,20 @@
 import faker from "faker";
 
-const products = new Array(5)
-  .map(() => {
-    const name = faker.commerce.productName();
-    return `<div>${name}</div>`;
-  })
-  .join();
+const mount = (el) => {
+  const products = new Array(5)
+    .map(() => {
+      const name = faker.commerce.productName();
+      return `<div>${name}</div>`;
+    })
+    .join();
 
-document.querySelector("#dev-products").innerHTML = products;
+  el.innerHTML = products;
+};
+
+if (process.env.NODE_ENV === "development") {
+  const el = document.getElementById("dev-products");
+
+  if (el) mount(el);
+}
+
+export { mount };
